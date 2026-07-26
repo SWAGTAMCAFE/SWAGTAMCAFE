@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swagtam Fast Food and Cafe</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --gold-color: #ffd700;
+            --red-color: #ff3b3b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(to bottom, #1a1a1a, var(--bg-color));
+            border-bottom: 2px solid #333;
+        }
+
+        .brand-name {
+            font-size: 3rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .brand-swagtam {
+            color: var(--gold-color);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .brand-tagline {
+            color: var(--red-color);
+            font-size: 1.5rem;
+            margin-top: 5px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .category-title {
+            font-size: 2rem;
+            color: var(--gold-color);
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--red-color);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .menu-section {
+            margin-bottom: 50px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .menu-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #333;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.15);
+        }
+
+        .item-image-container {
+            width: 100%;
+            height: 200px;
+            background-color: #2a2a2a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Styling placeholder for 3D/Interactive Images */
+        .item-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .menu-card:hover .item-image-container img {
+            transform: scale(1.1);
+        }
+
+        .item-details {
+            padding: 20px;
+        }
+
+        .item-name {
+            font-size: 1.3rem;
+            color: #fff;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .item-desc {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 15px;
+        }
+
+        .item-price {
+            font-size: 1.1rem;
+            color: var(--gold-color);
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: #0a0a0a;
+            border-top: 1px solid #222;
+            margin-top: 50px;
+        }
+
+        footer p {
+            font-size: 1rem;
+            color: #888;
+        }
+
+        footer a {
+            color: var(--gold-color);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 class="brand-name">
+            <span class="brand-swagtam">Swagtam</span>
+        </h1>
+        <div class="brand-tagline">Fast Food And Cafe</div>
+    </header>
+
+    <div class="container">
+
+        <!-- BURGERS SECTION -->
+        <section class="menu-section">
+            <h2 class="category-title">Burgers</h2>
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <div class="item-image-container">
+                        <!-- Replace src with your 3D rendered model image or high-quality asset -->
+                        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80" alt="Classic Veg Burger">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-name">Classic Veg Burger</div>
+                        <div class="item-desc">Crispy golden potato patty layered with fresh lettuce, juicy tomatoes, and our signature creamy mayo in a toasted bun.</div>
+                        <div class="item-price">₹149</div>
+                    </div>
+                </div>
+                <div class="menu-card">
+                    <div class="item-image-container">
+                        <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=500&q=80" alt="Cheesy Cheese Burger">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-name">Volcano Cheese Burger</div>
+                        <div class="item-desc">Loaded with a molten cheese-filled patty, caramelized onions, and extra cheddar slice for ultimate cheese lovers.</div>
+                        <div class="item-price">₹199</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PIZZAS SECTION -->
+        <section class="menu-section">
+            <h2 class="category-title">Pizzas</h2>
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <div class="item-image-container">
+                        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=500&q=80" alt="Margherita Pizza">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-name">Margherita Supreme</div>
+                        <div class="item-desc">Hand-tossed crust topped with rich tomato herb sauce, fresh mozzarella cheese, and fragrant basil leaves.</div>
+                        <div class="item-price">₹299</div>
+                    </div>
+                </div>
+                <div class="menu-card">
+                    <div class="item-image-container">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=500&q=80" alt="Farmhouse Pizza">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-name">Farmhouse Overload Pizza</div>
+                        <div class="item-desc">A heavy topping of crisp capsicum, juicy tomatoes, mushrooms, sweet corn, and double-layer mozzarella cheese.</div>
+                        <div class="item-price">₹349</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FRENCH FRIES SECTION -->
+        <section class="menu-section">
+            <h2 class="category-title">French Fries</h2>
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <div class="item-image-container">
+                        <img src="https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&w=500&q=80" alt="Classic Salted Fries">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-name">Classic Salted Fries</div>
+                        <div class="item-desc">Crispy exterior, fluffy interior potato fingers tossed lightly with fine table salt. Served with ketchup.</div>
+                        <div class="item-price">₹99</div>
+                    </div>
+                </div>
+                <div class="menu-card">
+                    <div class="item-image-container">
+                        <img src="https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?auto=format&fit=crop&w=500&q=80" alt="Peri Peri Fries">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-name">Spicy Peri Peri Fries</div>
+                        <div class="item-desc">Golden fries heavily dusted with a fiery African peri peri spice blend for an extra kick of heat and tang.</div>
+                        <div class="item-price">₹129</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COLD COFFEE SECTION -->
+        <section class="menu-section">
+            <h2 class="category-title">Cold Coffee</h2>
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <div class="item-image-container">
+                        <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=500&q=80" alt="Classic Cold Coffee">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-name">Classic Blended Cold Coffee</div>
+                        <div class="item-desc">Rich espresso blended seamlessly with chilled milk, sugar, and crushed ice, topped with a velvety froth layer.</div>
+                        <div class="item-price">₹139</div>
+                    </div>
+                </div>
+                <div class="menu-card">
+                    <div class="item-image-container">
+                        <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=500&q=80" alt="Choco Chip Cold Coffee">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-name">Choco-Chip Thick Shake</div>
+                        <div class="item-desc">An indulgent treat featuring thick cold coffee blended with chocolate syrup and loaded with chocolate chips.</div>
+                        <div class="item-price">₹179</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NOODLES SECTION -->
+        <section class="menu-section">
+            <h2 class="category-title">Noodles</h2>
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <div class="item-image-container">
+                        <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=500&q=80" alt="Hakka Noodles">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-name">Veg Hakka Noodles</div>
+                        <div class="item-desc">Wok-tossed stir-fried noodles mixed with crunchy julienned cabbage, carrots, bell peppers, and oriental soy sauces.</div>
+                        <div class="item-price">₹159</div>
+                    </div>
+                </div>
+                <div class="menu-card">
+                    <div class="item-image-container">
+                        <img src="https://images.unsplash.com/photo-1612927601601-6638404737ce?auto=format&fit=crop&w=500&q=80" alt="Schezwan Noodles">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-name">Fiery Schezwan Noodles</div>
+                        <div class="item-desc">Boiled noodles tossed in a house-made hot and pungent schezwan garlic sauce with crisp garden-fresh vegetables.</div>
+                        <div class="item-price">₹179</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PASTA SECTION -->
+        <section class="menu-section">
+            <h2 class="category-title">Pasta</h2>
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <div class="item-image-container">
+                        <img src="https://images.unsplash.com/photo-1621996346565-e3d5d6281298?auto=format&fit=crop&w=500&q=80" alt="White Sauce Pasta">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-name">Creamy White Sauce Pasta</div>
+                        <div class="item-desc">Penne pasta simmered in a rich, buttery garlic béchamel sauce with herbs, olives, bell peppers, and melted cheese.</div>
+                        <div class="item-price">₹219</div>
+                    </div>
+                </div>
+                <div class="menu-card">
+                    <div class="item-image-container">
+                        <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=500&q=80" alt="Red Sauce Pasta">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-name">Tangy Red Sauce Pasta</div>
+                        <div class="item-desc">Penne pasta tossed in an aromatic, slow-cooked Italian tomato-basil marinara sauce garnished with parmesan.</div>
+                        <div class="item-price">₹209</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MANCHURIAN SECTION -->
+        <section class="menu-section">
+            <h2 class="category-title">Manchurian</h2>
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <div class="item-image-container">
+                        <img src="https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=500&q=80" alt="Veg Manchurian Dry">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-name">Veg Manchurian (Dry)</div>
+                        <div class="item-desc">Crispy minced vegetable dumplings tossed vigorously in a tangy, thick soy-garlic glaze with spring onions.</div>
+                        <div class="item-price">₹169</div>
+                    </div>
+                </div>
+                <div class="menu-card">
+                    <div class="item-image-container">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=500&q=80" alt="Veg Manchurian Gravy">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-name">Veg Manchurian (Gravy)</div>
+                        <div class="item-desc">Soft veggie balls submerged in a luscious, savory Chinese gravy infused with ginger, garlic, and dark soy.</div>
+                        <div class="item-price">₹189</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Swagtam Fast Food and Cafe. All Rights Reserved.</p>
+        <p>Contact us at: <a href="mailto:SWAGTAMFAE@OUTLOOK.COM">SWAGTAMFAE@OUTLOOK.COM</a></p>
+    </footer>
+
+</body>
+</html>
