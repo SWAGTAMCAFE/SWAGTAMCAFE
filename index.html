@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swagtam Fast Food & Cafe - AR Menu</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Model Viewer for Real 3D / AR Integration -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #ff4757;
+            --secondary: #ffa502;
+            --dark: #2f3542;
+            --light: #f1f2f6;
+            --accent: #2ed573;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #121212;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            padding: 60px 20px;
+            border-bottom: 5px solid var(--primary);
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: var(--light);
+            letter-spacing: 1px;
+        }
+
+        .badge-offer {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 15px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .category-title {
+            font-size: 2rem;
+            color: var(--secondary);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 10px;
+            margin: 40px 0 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .menu-card {
+            background: #1e1e1e;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            border: 1px solid #333;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(255,71,87,0.3);
+        }
+
+        .card-img-container {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            background: #151515;
+        }
+
+        /* Styling for Google Model Viewer 3D Elements */
+        model-viewer {
+            width: 100%;
+            height: 100%;
+            --poster-color: #151515;
+        }
+
+        .discount-tag {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border-radius: 4px;
+            z-index: 2;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .card-header h3 {
+            font-size: 1.3rem;
+            color: #fff;
+        }
+
+        .price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-right: 8px;
+        }
+
+        .card-content p {
+            color: #b2bec3;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-ar {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+
+        .btn-ar:hover {
+            background: #ffb142;
+        }
+
+        .btn-order {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-order:hover {
+            background: #ff6b81;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            background: #000;
+            color: #7f8c8d;
+            margin-top: 60px;
+            border-top: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Swagtam Fast Food & Cafe</h1>
+        <p>Experience Food in Interactive 3D & Augmented Reality (AR)</p>
+        <div class="badge-offer"><i class="fas fa-tag"></i> Flat 20% OFF on All Combo Orders Today!</div>
+    </header>
+
+    <div class="container">
+
+        <!-- NOODLES -->
+        <h2 class="category-title"><i class="fas fa-bowl-food"></i> Gourmet Noodles (100% Egg-Free)</h2>
+        <div class="menu-grid">
+            <!-- Item 1 -->
+            <div class="menu-card">
+                <div class="card-img-container">
+                    <span class="discount-tag">Bestseller</span>
+                    <model-viewer src="https://modelviewer.dev/shared-assets/models/ShopifyModels/Burger.glb" poster="https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&w=600&q=80" alt="Veg Chowmein 3D" ar camera-controls auto-rotate></model-viewer>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Veg Chowmein</h3>
+                        <div class="price">₹170</div>
+                    </div>
+                    <p>Classic desi-Chinese stir-fried noodles seasoned with aromatic herbs, cabbage, and bell peppers.</p>
+                    <div class="card-actions">
+                        <button class="btn btn-ar" onclick="triggerAR('Veg Chowmein')"><i class="fas fa-cube"></i> View in AR</button>
+                        <button class="btn btn-order" onclick="orderItem('Veg Chowmein')">Order Now</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Item 2 -->
+            <div class="menu-card">
+                <div class="card-img-container">
+                    <span class="discount-tag">15% OFF</span>
+                    <model-viewer src="https://modelviewer.dev/shared-assets/models/ShopifyModels/Burger.glb" poster="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=600&q=80" alt="Garlic Stir-Fry Noodles 3D" ar camera-controls auto-rotate></model-viewer>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Garlic Stir-Fry Noodles</h3>
+                        <div class="price"><span class="old-price">₹220</span>₹185</div>
+                    </div>
+                    <p>Tossed wok-charred noodles loaded with fresh garlic, julienne vegetables, and signature oriental sauces.</p>
+                    <div class="card-actions">
+                        <button class="btn btn-ar" onclick="triggerAR('Garlic Stir-Fry Noodles')"><i class="fas fa-cube"></i> View in AR</button>
+                        <button class="btn btn-order" onclick="orderItem('Garlic Stir-Fry Noodles')">Order Now</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Item 3 -->
+            <div class="menu-card">
+                <div class="card-img-container">
+                    <span class="discount-tag">Chef Special</span>
+                    <model-viewer src="https://modelviewer.dev/shared-assets/models/ShopifyModels/Burger.glb" poster="https://images.unsplash.com/photo-1612927601601-6638404737ce?auto=format&fit=crop&w=600&q=80" alt="Chili Garlic Noodles 3D" ar camera-controls auto-rotate></model-viewer>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Chili Garlic Noodles</h3>
+                        <div class="price">₹210</div>
+                    </div>
+                    <p>Spicy, bold street-style noodles tossed in crushed red chilies, fresh garlic, and spring onions.</p>
+                    <div class="card-actions">
+                        <button class="btn btn-ar" onclick="triggerAR('Chili Garlic Noodles')"><i class="fas fa-cube"></i> View in AR</button>
+                        <button class="btn btn-order" onclick="orderItem('Chili Garlic Noodles')">Order Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PIZZA -->
+        <h2 class="category-title"><i class="fas fa-pizza-slice"></i> Artisan Wood-Fired Pizzas</h2>
+        <div class="menu-grid">
+            <!-- Item 1 -->
+            <div class="menu-card">
+                <div class="card-img-container">
+                    <span class="discount-tag">Bestseller</span>
+                    <model-viewer src="https://modelviewer.dev/shared-assets/models/Pizza.glb" poster="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=600&q=80" alt="Classic Margherita 3D" ar camera-controls auto-rotate></model-viewer>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Classic Margherita</h3>
+                        <div class="price">₹299</div>
+                    </div>
+                    <p>Simple yet perfect harmony of rich tomato sauce, fresh mozzarella cheese, and aromatic basil leaves.</p>
+                    <div class="card-actions">
+                        <button class="btn btn-ar" onclick="triggerAR('Classic Margherita')"><i class="fas fa-cube"></i> View in AR</button>
+                        <button class="btn btn-order" onclick="orderItem('Classic Margherita')">Order Now</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Item 2 -->
+            <div class="menu-card">
+                <div class="card-img-container">
+                    <span class="discount-tag">20% OFF</span>
+                    <model-viewer src="https://modelviewer.dev/shared-assets/models/Pizza.glb" poster="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" alt="Farmhouse Veggie 3D" ar camera-controls auto-rotate></model-viewer>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Farmhouse Veggie</h3>
+                        <div class="price"><span class="old-price">₹450</span>₹360</div>
+                    </div>
+                    <p>Loaded with crisp capsicum, sweet corn, juicy tomatoes, mushrooms, and extra gooey cheese.</p>
+                    <div class="card-actions">
+                        <button class="btn btn-ar" onclick="triggerAR('Farmhouse Veggie')"><i class="fas fa-cube"></i> View in AR</button>
+                        <button class="btn btn-order" onclick="orderItem('Farmhouse Veggie')">Order Now</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Item 3 -->
+            <div class="menu-card">
+                <div class="card-img-container">
+                    <model-viewer src="https://modelviewer.dev/shared-assets/models/Pizza.glb" poster="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=600&q=80" alt="Peri Peri Paneer 3D" ar camera-controls auto-rotate></model-viewer>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Peri Peri Paneer</h3>
+                        <div class="price">₹399</div>
+                    </div>
+                    <p>Spicy peri peri marinated paneer cubes, jalapeños, red paprika, and onions on a crisp crust.</p>
+                    <div class="card-actions">
+                        <button class="btn btn-ar" onclick="triggerAR('Peri Peri Paneer')"><i class="fas fa-cube"></i> View in AR</button>
+                        <button class="btn btn-order" onclick="orderItem('Peri Peri Paneer')">Order Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BURGERS -->
+        <h2 class="category-title"><i class="fas fa-burger"></i> Juicy Burgers</h2>
+        <div class="menu-grid">
+            <!-- Item 1 -->
+            <div class="menu-card">
+                <div class="card-img-container">
+                    <span class="discount-tag">Chef Choice</span>
+                    <model-viewer src="https://modelviewer.dev/shared-assets/models/ShopifyModels/Burger.glb" poster="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80" alt="Crispy Veg Burger 3D" ar camera-controls auto-rotate></model-viewer>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Crispy Veg Patty Burger</h3>
+                        <div class="price">₹149</div>
+                    </div>
+                    <p>Golden-fried vegetable patty layered with crisp iceberg lettuce, creamy mayo, and soft sesame buns.</p>
+                    <div class="card-actions">
+                        <button class="btn btn-ar" onclick="triggerAR('Crispy Veg Patty Burger')"><i class="fas fa-cube"></i> View in AR</button>
+                        <button class="btn btn-order" onclick="orderItem('Crispy Veg Patty Burger')">Order Now</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Item 2 -->
+            <div class="menu-card">
+                <div class="card-img-container">
+                    <model-viewer src="https://modelviewer.dev/shared-assets/models/ShopifyModels/Burger.glb" poster="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=600&q=80" alt="Double Cheese Burst 3D" ar camera-controls auto-rotate></model-viewer>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Double Cheese Burst</h3>
+                        <div class="price">₹219</div>
+                    </div>
+                    <p>Double potato-corn patties flooded with molten liquid cheddar cheese and caramelized onions.</p>
+                    <div class="card-actions">
+                        <button class="btn btn-ar" onclick="triggerAR('Double Cheese Burst')"><i class="fas fa-cube"></i> View in AR</button>
+                        <button class="btn btn-order" onclick="orderItem('Double Cheese Burst')">Order Now</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Item 3 -->
+            <div class="menu-card">
+                <div class="card-img-container">
+                    <span class="discount-tag">Spicy</span>
+                    <model-viewer src="https://modelviewer.dev/shared-assets/models/ShopifyModels/Burger.glb" poster="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=600&q=80" alt="Spicy Paneer Tikka Burger 3D" ar camera-controls auto-rotate></model-viewer>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Spicy Paneer Tikka Burger</h3>
+                        <div class="price">₹249</div>
+                    </div>
+                    <p>Grilled paneer steak coated in tandoori spices with mint mayo and crunchy coleslaw.</p>
+                    <div class="card-actions">
+                        <button class="btn btn-ar" onclick="triggerAR('Spicy Paneer Tikka Burger')"><i class="fas fa-cube"></i> View in AR</button>
+                        <button class="btn btn-order" onclick="orderItem('Spicy Paneer Tikka Burger')">Order Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COLD COFFEE -->
+        <h2 class="category-title"><i class="fas fa-mug-hot"></i> Refreshing Cold Coffees</h2>
+        <div class="menu-grid">
+            <!-- Item 1 -->
+            <div class="menu-card">
+                <div class="card-img-container">
+                    <span class="discount-tag">Popular</span>
+                    <model-viewer src="https://modelviewer.dev/shared-assets/models/Cup.glb" poster="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=600&q=80" alt="Classic Blended Coffee 3D" ar camera-controls auto-rotate></model-viewer>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Classic Blended Coffee</h3>
+                        <div class="price">₹180</div>
+                    </div>
+                    <p>Rich espresso blended smooth with chilled milk, vanilla ice cream, and topped with chocolate drizzle.</p>
+                    <div class="card-actions">
+                        <button class="btn btn-ar" onclick="triggerAR('Classic Blended Coffee')"><i class="fas fa-cube"></i> View in AR</button>
+                        <button class="btn btn-order" onclick="orderItem('Classic Blended Coffee')">Order Now</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Item 2 -->
+            <div class="menu-card">
+                <div class="card-img-container">
+                    <span class="discount-tag">Special</span>
+                    <model-viewer src="https://modelviewer.dev/shared-assets/models/Cup.glb" poster="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=600&q=80" alt="Hazelnut Cold Coffee 3D" ar camera-controls auto-rotate></model-viewer>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Hazelnut Cold Coffee</h3>
+                        <div class="price">₹220</div>
+                    </div>
+                    <p>Our signature creamy coffee infused with rich aromatic hazelnut syrup and crushed ice.</p>
+                    <div class="card-actions">
+                        <button class="btn btn-ar" onclick="triggerAR('Hazelnut Cold Coffee')"><i class="fas fa-cube"></i> View in AR</button>
+                        <button class="btn btn-order" onclick="orderItem('Hazelnut Cold Coffee')">Order Now</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Item 3 -->
+            <div class="menu-card">
+                <div class="card-img-container">
+                    <model-viewer src="https://modelviewer.dev/shared-assets/models/Cup.glb" poster="https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=600&q=80" alt="Choco-Brownie Shake 3D" ar camera-controls auto-rotate></model-viewer>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Choco-Brownie Shake</h3>
+                        <div class="price">₹260</div>
+                    </div>
+                    <p>Thick shake blended with a gooey chocolate fudge brownie, espresso shot, and whipped cream.</p>
+                    <div class="card-actions">
+                        <button class="btn btn-ar" onclick="triggerAR('Choco-Brownie Shake')"><i class="fas fa-cube"></i> View in AR</button>
+                        <button class="btn btn-order" onclick="orderItem('Choco-Brownie Shake')">Order Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FRENCH FRIES -->
+        <h2 class="category-title"><i class="fas fa-french-fries"></i> Crispy French Fries</h2>
+        <div class="menu-grid">
+            <!-- Item 1 -->
+            <div class="menu-card">
+                <div class="card-img-container">
+                    <model-viewer src="https://modelviewer.dev/shared-assets/models/ShopifyModels/Burger.glb" poster="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=600&q=80" alt="Classic Salted Fries 3D" ar camera-controls auto-rotate></model-viewer>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Classic Salted Fries</h3>
+                        <div class="price">₹120</div>
+                    </div>
+                    <p>Golden, crispy potato sticks seasoned to perfection with fine sea salt.</p>
+                    <div class="card-actions">
+                        <button class="btn btn-ar" onclick="triggerAR('Classic Salted Fries')"><i class="fas fa-cube"></i> View in AR</button>
+                        <button class="btn btn-order" onclick="orderItem('Classic Salted Fries')">Order Now</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Item 2 -->
+            <div class="menu-card">
+                <div class="card-img-container">
+                    <span class="discount-tag">Must Try</span>
+                    <model-viewer src="https://modelviewer.dev/shared-assets/models/ShopifyModels/Burger.glb" poster="https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?auto=format&fit=crop&w=600&q=80" alt="Peri Peri Loaded Fries 3D" ar camera-controls auto-rotate></model-viewer>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Peri Peri Loaded Fries</h3>
+                        <div class="price">₹160</div>
+                    </div>
+                    <p>Tossed in fiery African bird's eye chili seasoning for an extra kick of spice.</p>
+                    <div class="card-actions">
+                        <button class="btn btn-ar" onclick="triggerAR('Peri Peri Loaded Fries')"><i class="fas fa-cube"></i> View in AR</button>
+                        <button class="btn btn-order" onclick="orderItem('Peri Peri Loaded Fries')">Order Now</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Item 3 -->
+            <div class="menu-card">
+                <div class="card-img-container">
+                    <span class="discount-tag">Cheese Bomb</span>
+                    <model-viewer src="https://modelviewer.dev/shared-assets/models/ShopifyModels/Burger.glb" poster="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=600&q=80" alt="Cheese & Jalapeño Fries 3D" ar camera-controls auto-rotate></model-viewer>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Cheese & Jalapeño Fries</h3>
+                        <div class="price">₹199</div>
+                    </div>
+                    <p>Crispy fries drenched in hot melted cheese sauce topped with sliced jalapeños.</p>
+                    <div class="card-actions">
+                        <button class="btn btn-ar" onclick="triggerAR('Cheese & Jalapeño Fries')"><i class="fas fa-cube"></i> View in AR</button>
+                        <button class="btn btn-order" onclick="orderItem('Cheese & Jalapeño Fries')">Order Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MOMOS -->
+        <h2 class="category-title"><i class="fas fa-dumpling"></i> Steamed & Fried Momos</h2>
+        <div class="menu-grid">
+            <!-- Item 1 -->
+            <div class="menu-card">
+                <div class="card-img-container">
+                    <model-viewer src="https://modelviewer.dev/shared-assets/models/Pizza.glb" poster="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=600&q=80" alt="Classic Steamed Veg Momos 3D" ar camera-controls auto-rotate></model-viewer>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Classic Steamed Veg Momos</h3>
+                        <div class="price">₹130</div>
+                    </div>
+                    <p>Delicate handmade dumplings stuffed with seasoned finely-chopped veggies, served with spicy red dip.</p>
+                    <div class="card-actions">
+                        <button class="btn btn-ar" onclick="triggerAR('Classic Steamed Veg Momos')"><i class="fas fa-cube"></i> View in AR</button>
+                        <button class="btn btn-order" onclick="orderItem('Classic Steamed Veg Momos')">Order Now</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Item 2 -->
+            <div class="menu-card">
+                <div class="card-img-container">
+                    <span class="discount-tag">Crunchy</span>
+                    <model-viewer src="https://modelviewer.dev/shared-assets/models/Pizza.glb" poster="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=600&q=80" alt="Crispy Fried Momos 3D" ar camera-controls auto-rotate></model-viewer>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Crispy Fried Momos</h3>
+                        <div class="price">₹150</div>
+                    </div>
+                    <p>Deep-fried to golden perfection, offering an incredible crunch with every single bite.</p>
+                    <div class="card-actions">
+                        <button class="btn btn-ar" onclick="triggerAR('Crispy Fried Momos')"><i class="fas fa-cube"></i> View in AR</button>
+                        <button class="btn btn-order" onclick="orderItem('Crispy Fried Momos')">Order Now</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Item 3 -->
+            <div class="menu-card">
+                <div class="card-img-container">
+                    <span class="discount-tag">Chef Special</span>
+                    <model-viewer src="https://modelviewer.dev/shared-assets/models/Pizza.glb" poster="https://images.unsplash.com/photo-1496116218417-1a781b1c416c?auto=format&fit=crop&w=600&q=80" alt="Kurkure Paneer Momos 3D" ar camera-controls auto-rotate></model-viewer>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Kurkure Paneer Momos</h3>
+                        <div class="price">₹190</div>
+                    </div>
+                    <p>Crunchy cornflake-crusted momos filled with paneer and spices, served with mayonnaise.</p>
+                    <div class="card-actions">
+                        <button class="btn btn-ar" onclick="triggerAR('Kurkure Paneer Momos')"><i class="fas fa-cube"></i> View in AR</button>
+                        <button class="btn btn-order" onclick="orderItem('Kurkure Paneer Momos')">Order Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Swagtam Fast Food & Cafe. Powered by Interactive 3D & WebAR Menu Experience.</p>
+    </footer>
+
+    <!-- JavaScript Actions -->
+    <script>
+        function triggerAR(itemName) {
+            alert("🚀 Activating AR Space for: " + itemName + "\n\nTip: On supported mobile browsers, you can tap the AR icon inside the 3D viewer window to place this item right on your table!");
+        }
+
+        function orderItem(itemName) {
+            alert("🛒 " + itemName + " has been added to your cart successfully!");
+        }
+    </script>
+</body>
+</html>
